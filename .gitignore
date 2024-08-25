@@ -1,0 +1,18 @@
+# Environments
+.venv/
+.Dockerfile.swp
+.env
+
+# Django stuff:
+db.sqlite3
+/static
+src/static
+
+# IDEs
+.idea/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+
+deploy_tools/
