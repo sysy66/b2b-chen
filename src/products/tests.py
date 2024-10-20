@@ -4,9 +4,11 @@ from products.views import home_page
 
 
 class HomePageTest(TestCase):
-    def test_home_page_return_correct_html(self):
+    
+    def test_use_home_page(self):
         response = self.client.get("/")
-        html = response.content.decode('utf-8')
-        self.assertIn("<title>WUHAN STARSTONE</title>", html)
-        self.assertTrue(html.startswith("<html>"))
-        self.assertTrue(html.endswith("</html>"))
+        self.assertTemplateUsed(response, "products/home.html")
+    
+    def test_use_products_all_page(self):
+        response = self.client.get("/products/")
+        self.assertTemplateUsed(response, "products/products_all.html")
