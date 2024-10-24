@@ -8,6 +8,10 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
+    
+    @property
+    def identifier(self):
+        return '-'.join(self.name.lower().split())
 
 
 class Item(models.Model):
@@ -20,3 +24,7 @@ class Item(models.Model):
     
     def __str__(self):
         return self.name
+    
+    @property
+    def identifier(self):
+        return '-'.join(self.name.lower().split())
