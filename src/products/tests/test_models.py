@@ -10,7 +10,7 @@ class ItemModelsTest(TestCase):
     
     def test_item_is_related_to_category(self):
         nuCategory = Category.objects.create(name="NEW Category")
-        nuItem = Item("NEW Product")
+        nuItem = Item(name="NEW Product")
         nuItem.category = nuCategory
         nuItem.save()
         self.assertIn(nuItem, nuCategory.item_set.all())
@@ -40,7 +40,7 @@ class ItemModelsTest(TestCase):
     def test_get_correct_identifier(self):
         nuItem = Item.objects.create(name="Item 1")
         Item.objects.create(name="Item 2")
-        self.assertEqual(nuItem.identifier, '-'.join(nuItem.name.lower().split()))
+        self.assertEqual(nuItem.identifier, "item-1")
     
     def test_get_absolute_url(self):
         nuItem = Item.objects.create(name="NEW Product 1")
@@ -56,7 +56,7 @@ class CategoryModelsTest(TestCase):
     def test_get_correct_identifier(self):
         nuCategory = Category.objects.create(name="Category 1")
         Category.objects.create(name="Category 2")
-        self.assertEqual(nuCategory.identifier, '-'.join(nuCategory.name.lower().split()))
+        self.assertEqual(nuCategory.identifier, 'category-1')
     
     def test_get_absolute_url(self):
         nuCategory = Category.objects.create(name="NEW Category")
