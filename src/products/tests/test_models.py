@@ -44,7 +44,7 @@ class ItemModelsTest(TestCase):
     
     def test_get_absolute_url(self):
         nuItem = Item.objects.create(name="NEW Product 1")
-        self.assertEqual(nuItem.get_absolute_url(), f"/products/categories/{nuItem.identifier}/")
+        self.assertEqual(nuItem.get_absolute_url(), f"/products/{nuItem.identifier}/")
     
     def test_string_representation(self):
         item = Item(name="Product 1")

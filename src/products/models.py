@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from django.db import models
 
 
@@ -16,6 +18,9 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super(Category, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("products:categories", args=[self.identifier])
 
 
 class Item(models.Model):
@@ -36,3 +41,6 @@ class Item(models.Model):
     def save(self, *args, **kwargs):
         self.full_clean()
         super(Item, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("products:detail", args=[self.identifier])
