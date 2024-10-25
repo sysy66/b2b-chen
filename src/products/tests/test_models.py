@@ -19,31 +19,39 @@ class ItemModelsTest(TestCase):
         nuCategory = Category.objects.create(name="NEW Category")
         nuItem = Item(category=nuCategory, name="")
         with self.assertRaises(ValidationError):
-            nuItem.save()
-            # nuItem.full_clean()
+            nuItem.full_clean()
     
     def test_duplicate_items_are_invalid(self):
         nuCategory = Category.objects.create(name="NEW Category")
-        Item.objects.create(category=nuCategory, name="G602")
+        item1 = Item(category=nuCategory, name="G602")
+        item1.full_clean()
+        item1.save()
         with self.assertRaises(ValidationError):
-            item = Item(category=nuCategory, name="G602")
-            item.full_clean()
+            item2 = Item(category=nuCategory, name="G602")
+            item2.full_clean()
     
     def test_duplicate_identifiers_are_invalid(self):
         nuCategory = Category.objects.create(name="NEW Category")
-        item1 = Item.objects.create(category=nuCategory, name="G602")
+        item1 = Item(category=nuCategory, name="G602")
+        item1.full_clean()
+        item1.save()
         item2 = Item(category=nuCategory, name="g602")
-        self.assertEqual(item1.identifier, item2.identifier)
         with self.assertRaises(ValidationError):
             item2.full_clean()
     
     def test_get_correct_identifier(self):
-        nuItem = Item.objects.create(name="Item 1")
-        Item.objects.create(name="Item 2")
-        self.assertEqual(nuItem.identifier, "item-1")
+        item1 = Item(name="Item 1")
+        item1.full_clean()
+        item1.save()
+        item2 = Item(name="Item 2")
+        item2.full_clean()
+        item2.save()
+        self.assertEqual(item2.identifier, "item-2")
     
     def test_get_absolute_url(self):
-        nuItem = Item.objects.create(name="NEW Product 1")
+        nuItem = Item(name="NEW Product 1")
+        nuItem.full_clean()
+        nuItem.save()
         self.assertEqual(nuItem.get_absolute_url(), f"/products/{nuItem.identifier}/")
     
     def test_string_representation(self):
@@ -54,18 +62,22 @@ class ItemModelsTest(TestCase):
 class CategoryModelsTest(TestCase):
     
     def test_get_correct_identifier(self):
-        nuCategory = Category.objects.create(name="Category 1")
+        nuCategory = Category(name="Category 1")
+        nuCategory.full_clean()
         Category.objects.create(name="Category 2")
         self.assertEqual(nuCategory.identifier, 'category-1')
     
     def test_get_absolute_url(self):
-        nuCategory = Category.objects.create(name="NEW Category")
+        nuCategory = Category(name="NEW Category")
+        nuCategory.full_clean()
+        nuCategory.save()
         self.assertEqual(nuCategory.get_absolute_url(), f"/products/categories/{nuCategory.identifier}/")
     
     def test_duplicate_identifiers_are_invalid(self):
-        nuCategory1 = Category.objects.create(name="NEW Category")
+        nuCategory1 = Category(name="NEW Category")
+        nuCategory1.full_clean()
+        nuCategory1.save()
         nuCategory2 = Category(name="new Category")
-        self.assertEqual(nuCategory1.identifier, nuCategory2.identifier)
         with self.assertRaises(ValidationError):
             nuCategory2.full_clean()
     

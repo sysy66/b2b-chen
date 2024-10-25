@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from django.db import models
@@ -8,16 +9,18 @@ class Category(models.Model):
     desc = models.TextField(blank=True)
     identifier = models.TextField(blank=True, unique=True)
     
-    def __init__(self, *args, **kwargs):
-        super(Category, self).__init__(*args, **kwargs)
-        self.identifier = '-'.join(self.name.lower().split())
-    
     def __str__(self):
         return self.name
     
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super(Category, self).save(*args, **kwargs)
+    def full_clean(self, *args, **kwargs):
+        self.identifier = '-'.join(self.name.lower().split())
+        try:
+            Category.objects.get(identifier=self.identifier)
+        except:
+            pass
+        else:
+            raise ValidationError("This category has already been created")
+        super(Category, self).full_clean(*args, **kwargs)
     
     def get_absolute_url(self):
         return reverse("products:categories", args=[self.identifier])
@@ -31,16 +34,18 @@ class Item(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     identifier = models.TextField(blank=True, unique=True)
     
-    def __init__(self, *args, **kwargs):
-        super(Item, self).__init__(*args, **kwargs)
-        self.identifier = '-'.join(self.name.lower().split())
-    
     def __str__(self):
         return self.name
     
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super(Item, self).save(*args, **kwargs)
+    def full_clean(self, *args, **kwargs):
+        self.identifier = '-'.join(self.name.lower().split())
+        try:
+            Item.objects.get(identifier=self.identifier)
+        except:
+            pass
+        else:
+            raise ValidationError("This Item has already been created")
+        super(Item, self).full_clean(*args, **kwargs)
     
     def get_absolute_url(self):
         return reverse("products:detail", args=[self.identifier])
