@@ -14,7 +14,7 @@ class HomePageTest(TestCase):
 class ProductsViewTest(TestCase):
     def test_uses_products_all_template(self):
         response = self.client.get("/products/")
-        self.assertTemplateUsed(response, "products/all.html")
+        self.assertTemplateUsed(response, "products/all_p.html")
     
     def test_displays_product_img(self):
         nuItem = Item.objects.create(name="Test Product")

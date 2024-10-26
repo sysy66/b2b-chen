@@ -5,8 +5,8 @@ def home_page(request):
     return render(request, "products/home.html")
 
 
-def all(request):
-    return render(request, "products/all.html")
+def all_p(request):
+    return render(request, "products/all_p.html")
 
 
 def detail(request, identifier: str):
