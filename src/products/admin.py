@@ -4,10 +4,10 @@ from .models import Item, Category
 
 class ItemAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {"fields": ["name"]}),
-        ("Description", {"fields": ["desc"], "classes": ["collapse"]}),
+        (None, {"fields": ["name", "category"]}),
+        (None, {"fields": ["identifier"], "classes": ["hidden"]}),
+        ("Description", {"fields": ["desc", "is_popular"], "classes": ["collapse"]}),
         ("Product Image", {"fields": ["img"]}),
-        ("More Option", {"fields": ["category", "is_popular"], "classes": ["collapse"]}),
     ]
     list_display = ["name", "is_popular", "img", "category", "get_absolute_url"]
     list_filter = ["name", "is_popular", "category"]
@@ -23,6 +23,7 @@ class ItemInline(admin.TabularInline):
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {"fields": ["name"]}),
+        (None, {"fields": ["identifier"], "classes": ["hidden"]}),
         ("Description", {"fields": ["desc"], "classes": ["collapse"]}),
     ]
     inlines = [ItemInline]

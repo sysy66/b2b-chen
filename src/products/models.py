@@ -1,4 +1,3 @@
-from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.contrib import admin
 from django.db import models
@@ -14,12 +13,7 @@ class Category(models.Model):
     
     def full_clean(self, *args, **kwargs):
         self.identifier = '-'.join(self.name.lower().split())
-        try:
-            Category.objects.get(identifier=self.identifier)
-        except:
-            pass
-        else:
-            raise ValidationError("This category has already been created")
+        self.validate_unique()
         super(Category, self).full_clean(*args, **kwargs)
     
     @admin.display(description='LINK')
@@ -40,12 +34,7 @@ class Item(models.Model):
     
     def full_clean(self, *args, **kwargs):
         self.identifier = '-'.join(self.name.lower().split())
-        try:
-            Item.objects.get(identifier=self.identifier)
-        except:
-            pass
-        else:
-            raise ValidationError("This Item has already been created")
+        self.validate_unique()
         super(Item, self).full_clean(*args, **kwargs)
     
     @admin.display(description='LINK')
