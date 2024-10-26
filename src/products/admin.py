@@ -9,7 +9,7 @@ class ItemAdmin(admin.ModelAdmin):
         ("Product Image", {"fields": ["img"]}),
         ("More Option", {"fields": ["category", "is_popular"], "classes": ["collapse"]}),
     ]
-    list_display = ["name", "is_popular", "img", "category"]
+    list_display = ["name", "is_popular", "img", "category", "get_absolute_url"]
     list_filter = ["name", "is_popular", "category"]
     search_fields = ["name"]
 
@@ -26,7 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
         ("Description", {"fields": ["desc"], "classes": ["collapse"]}),
     ]
     inlines = [ItemInline]
-    list_display = ["name", "desc"]
+    list_display = ["name", "desc", "get_absolute_url"]
     list_filter = ["name"]
     search_fields = ["name"]
 

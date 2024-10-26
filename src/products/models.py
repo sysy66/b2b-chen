@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-
+from django.contrib import admin
 from django.db import models
 
 
@@ -22,6 +22,7 @@ class Category(models.Model):
             raise ValidationError("This category has already been created")
         super(Category, self).full_clean(*args, **kwargs)
     
+    @admin.display(description='LINK')
     def get_absolute_url(self):
         return reverse("products:categories", args=[self.identifier])
 
@@ -47,5 +48,6 @@ class Item(models.Model):
             raise ValidationError("This Item has already been created")
         super(Item, self).full_clean(*args, **kwargs)
     
+    @admin.display(description='LINK')
     def get_absolute_url(self):
         return reverse("products:detail", args=[self.identifier])
