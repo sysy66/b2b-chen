@@ -57,6 +57,14 @@ class ItemModelsTest(TestCase):
     def test_string_representation(self):
         item = Item(name="Product 1")
         self.assertEqual(str(item), "Product 1")
+    
+    def test_can_modify_item(self):
+        nuItem = Item(name="NEW Product 1")
+        nuItem.full_clean()
+        nuItem.save()
+        nuItem = Item(desc="it's Product 1")
+        nuItem.full_clean()  # should not raise
+        nuItem.save()  # should not raise
 
 
 class CategoryModelsTest(TestCase):
@@ -84,3 +92,12 @@ class CategoryModelsTest(TestCase):
     def test_string_representation(self):
         category1 = Category(name="Category 1")
         self.assertEqual(str(category1), "Category 1")
+        
+    def test_can_modify_category(self):
+        category = Category(name="NEW Category 1")
+        category.full_clean()
+        category.save()
+        category = Item(desc="it's Category 1")
+        category.full_clean()  # should not raise
+        category.save()  # should not raise
+        
