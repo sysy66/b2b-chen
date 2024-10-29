@@ -9,9 +9,9 @@ def all_p(request):
     return render(request, "products/all_p.html")
 
 
-def detail(request, identifier: str):
+def detail(request, pk):
     return render(request, "products/detail.html")
 
 
-def categories(request, identifier: str):
+def categories(request, pk):
     return render(request, "products/categories.html")
