@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.contrib import admin
 from django.db import models
 
+# TODO: real options is ?
 SIZES = (
     ('General', 'General'),
     ('10mm', '10mm'),
@@ -22,6 +23,7 @@ COLOUR = (
 )
 
 
+# TODO: models index???
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     desc = models.TextField(blank=True, null=True)
