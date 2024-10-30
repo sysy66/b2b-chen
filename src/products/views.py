@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from .models import Item, Category
 
 
 def home_page(request):
@@ -10,8 +12,11 @@ def all_p(request):
 
 
 def detail(request, pk):
-    return render(request, "products/detail.html")
+    item = get_object_or_404(Item, pk=pk)
+    return render(request, "products/detail.html", {"item": item})
 
 
 def categories(request, pk):
-    return render(request, "products/categories.html")
+    category = get_object_or_404(Category, pk=pk)
+    items = category.item_set.all()
+    return render(request, "products/categories.html", {"category": category, "items": items})

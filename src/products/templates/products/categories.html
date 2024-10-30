@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>WUHAN STARSTONE</title>
 </head>
-<body>
-
-</body>
+    <body>
+        <h1>{{ category.name }}</h1>
+        <p>{{ category.desc }}</p>
+        {% for item in items %}
+            <p>{{ item.name }}</p>
+        {% endfor %}
+    </body>
 </html>

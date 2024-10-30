@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>WUHAN STARSTONE</title>
 </head>
-<body>
-
-</body>
+    <body>
+    <h1>{{ item.name }}</h1>
+    <p>{{ item.desc }}</p>
+    <p>{{ item.category }}</p>
+    <img id="product_img" src="{% get_media_prefix %}{{ item.img }}" alt="item.name" width="150px'">
+    </body>
 </html>
