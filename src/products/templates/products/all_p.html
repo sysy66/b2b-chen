@@ -7,7 +7,7 @@
     <body>
         <h1>WUHAN STARSTONE</h1>
         {% for item in items %}
-            <a href="{% url "products:detail" item.pk %}"><p>{{ item.name }}</p></a>
+            <a href="{% url "products:detail" item.pk %}">{{ item.name }}</a>
         {% endfor %}
     </body>
 </html>

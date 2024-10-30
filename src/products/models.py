@@ -57,6 +57,7 @@ class Item(models.Model):
     def __str__(self):
         return self.name
     
+    # TODO: use Django slug
     @admin.display(description='LINK')
     def get_absolute_url(self):
         return reverse('products:detail', args=[self.pk])

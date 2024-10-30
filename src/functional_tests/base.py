@@ -1,47 +1,21 @@
-import unittest
-import time
-
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+import os
+
+from products.models import Item, Category
 
 
-class NewVisitorTest(unittest.TestCase):
+class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
+        test_server = os.environ.get("TEST_SERVER")
+        if test_server:
+            self.live_server_url = "http://" + test_server
+        
+        # Set up data for the whole TestCase
+        self.category = Category.objects.create(name="Granite", desc="A beautiful granite")
+        self.item = Item.objects.create(name="G602", category=self.category, desc="A beautiful G602",
+                                        img="images/products/G602.jpeg")
     
     def tearDown(self):
         self.browser.quit()
-    
-    def test_can_browse_a_product_page_and_submit_message(self):
-        # Edith has heard about a cool new online website WUHAN STARSTONE.
-        # She goes to check out its homepage
-        self.browser.get("http://localhost:8811/products")
-        
-        # She notices the page title and header mention WUHAN STARSTONE
-        self.assertIn("WUHAN STARSTONE", self.browser.title)
-        header_text = self.browser.find_element(By.TAG_NAME, "h1").text
-        self.assertIn("WUHAN STARSTONE", header_text)
-        
-        # She noticed a product code named G602
-        product_info = self.browser.find_element(By.TAG_NAME, "p")
-        self.assertEqual(product_info.text, "G602")
-        
-        # She clicked on the product image
-        product_info.click()
-        time.sleep(1)
-        
-        # When she hits enter, the page updates, and now the products details
-        gallery = self.browser.find_element(By.CLASS_NAME, "gallery")
-        img = gallery.find_element(By.TAG_NAME, "img")
-        self.assertTrue(img.get_attribute("alt"), "G602")
-        
-        # She noticed that there was a window on the page for submitting information
-        
-        # She submitted her own information
-        
-        # Satisfied, she goes back to sleep
-        self.fail("Finish the test!")
-
-
-if __name__ == "__main__":
-    unittest.main()

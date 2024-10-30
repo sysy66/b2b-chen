@@ -8,7 +8,7 @@
         <h1>{{ category.name }}</h1>
         <p>{{ category.desc }}</p>
         {% for item in items %}
-            <p>{{ item.name }}</p>
+            <a href="{% url 'products:detail' item.id %}">{{ item.name }}</a>
         {% endfor %}
     </body>
 </html>
