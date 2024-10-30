@@ -2,7 +2,6 @@ import unittest
 import time
 
 from selenium import webdriver
-from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 
@@ -24,11 +23,11 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn("WUHAN STARSTONE", header_text)
         
         # She noticed a product code named G602
-        product_info = self.browser.find_element(By.TAG_NAME, "h3")
+        product_info = self.browser.find_element(By.TAG_NAME, "p")
         self.assertEqual(product_info.text, "G602")
         
         # She clicked on the product image
-        product_info.send_keys(Keys.ENTER)
+        product_info.click()
         time.sleep(1)
         
         # When she hits enter, the page updates, and now the products details

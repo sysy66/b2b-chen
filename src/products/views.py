@@ -8,7 +8,8 @@ def home_page(request):
 
 
 def all_p(request):
-    return render(request, "products/all_p.html")
+    items = Item.objects.all()
+    return render(request, "products/all_p.html", {"items": items})
 
 
 def detail(request, pk):

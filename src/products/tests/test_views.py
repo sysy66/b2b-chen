@@ -15,6 +15,18 @@ class ProductsViewTest(TestCase):
         response = self.client.get("/products/")
         self.assertTemplateUsed(response, "products/all_p.html")
     
+    def test_display_all_items(self):
+        Category.objects.create(name="Test Category")
+        item1 = Item(name="G603")
+        item1.full_clean()
+        item1.save()
+        item2 = Item(name="G602")
+        item2.full_clean()
+        item2.save()
+        response = self.client.get("/products/")
+        self.assertContains(response, item1.name)
+        self.assertContains(response, item2.name)
+    
     def test_uses_detail_template(self):
         Category.objects.create(name="Test Category")
         nuItem = Item(name="G602")
@@ -35,7 +47,7 @@ class ProductsViewTest(TestCase):
         self.assertContains(response, "G602 is good.")
         self.assertContains(response, "Quartz")
         self.assertContains(response, "/media/images/products/default.jpg")
-        
+    
     def test_incorrect_urL_resulting_in_404(self):
         nuCategory = Category(name="Quartz")
         nuCategory.full_clean()
@@ -46,7 +58,7 @@ class ProductsViewTest(TestCase):
         idx = nuItem.pk + 1
         response = self.client.get(f"/products/{idx}/")
         self.assertEqual(response.status_code, 404)
-        
+    
     def test_passes_correct_item_to_template(self):
         Category.objects.create(name="Test Category")
         other_item = Item(name="G603")
@@ -82,7 +94,7 @@ class CategoriesViewTest(TestCase):
         idx = nuCategory.pk + 1
         response = self.client.get(f"/products/categories/{idx}/")
         self.assertEqual(response.status_code, 404)
-        
+    
     def test_displays_only_items_for_that_category(self):
         other_category = Category(name="other Quartz")
         other_category.full_clean()
