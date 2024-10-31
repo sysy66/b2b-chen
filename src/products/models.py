@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.contrib import admin
 from django.db import models
+from autoslug import AutoSlugField
 
 # TODO: real options is ?
 SIZES = (
@@ -27,6 +28,7 @@ COLOUR = (
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     desc = models.TextField(blank=True, default='')
+    slug = AutoSlugField(populate_from='name', max_length=50, unique=True)
     
     class Meta:
         ordering = ('name',)
@@ -37,7 +39,7 @@ class Category(models.Model):
     
     @admin.display(description='LINK')
     def get_absolute_url(self):
-        return reverse('products:categories', args=[self.pk])
+        return reverse('products:categories', args=[self.slug])
 
 
 class Item(models.Model):
@@ -49,6 +51,7 @@ class Item(models.Model):
     img = models.ImageField(upload_to='images/products/', default='images/products/default.jpg')
     is_popular = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default='1')
+    slug = AutoSlugField(populate_from='name', max_length=50, unique=True)
     
     class Meta:
         ordering = ('name',)
@@ -57,7 +60,6 @@ class Item(models.Model):
     def __str__(self):
         return self.name
     
-    # TODO: use Django slug
     @admin.display(description='LINK')
     def get_absolute_url(self):
-        return reverse('products:detail', args=[self.pk])
+        return reverse('products:detail', args=[self.slug])

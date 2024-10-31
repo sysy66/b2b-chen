@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
     'inquiry.apps.InquiryConfig',
+    'autoslug',
 ]
 
 MIDDLEWARE = [
