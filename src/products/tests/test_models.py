@@ -37,7 +37,7 @@ class ItemModelsTest(TestCase):
         nuItem = Item(name="NEW Product 1")
         nuItem.full_clean()
         nuItem.save()
-        self.assertEqual(nuItem.get_absolute_url(), f"/products/1/")
+        self.assertEqual(nuItem.get_absolute_url(), f"/products/{nuItem.slug}/")
     
     def test_string_representation(self):
         item = Item(name="Product 1")
@@ -59,7 +59,7 @@ class CategoryModelsTest(TestCase):
         nuCategory = Category(name="NEW Category")
         nuCategory.full_clean()
         nuCategory.save()
-        self.assertEqual(nuCategory.get_absolute_url(), f"/products/categories/1/")
+        self.assertEqual(nuCategory.get_absolute_url(), f"/products/categories/{nuCategory.slug}/")
     
     def test_duplicate_identifiers_are_invalid(self):
         nuCategory1 = Category(name="NEW Category")
