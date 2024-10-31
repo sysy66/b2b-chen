@@ -26,8 +26,7 @@ COLOUR = (
 # TODO: models index???
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    # TODO:避免在基于字符串的字段上使用 null
-    desc = models.TextField(blank=True, null=True)
+    desc = models.TextField(blank=True, default='')
     
     class Meta:
         ordering = ('name',)
@@ -46,8 +45,7 @@ class Item(models.Model):
     size = models.CharField(max_length=50, default='General', choices=SIZES)
     thickness = models.CharField(max_length=50, default='General', choices=THICKNESS)
     colour = models.CharField(max_length=50, default='General', choices=COLOUR)
-    # TODO:避免在基于字符串的字段上使用 null
-    desc = models.TextField(blank=True, null=True)
+    desc = models.TextField(blank=True, default='')
     img = models.ImageField(upload_to='images/products/', default='images/products/default.jpg')
     is_popular = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default='1')

@@ -172,7 +172,7 @@ class ItemModel1Test(TestCase):
             name='Blank Description Item',
             category=self.category
         )
-        self.assertIsNone(item.desc)  # 验证描述为None
+        self.assertEqual(item.desc, '')  # 验证描述为None
     
     def test_create_item_without_category(self):
         # 测试项目创建没有类别的情况
