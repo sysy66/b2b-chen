@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 
 
 class ClientInfo(models.Model):
@@ -10,6 +11,7 @@ class ClientInfo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    @admin.display(boolean=True)
     @property
     def was_connected_recently(self):
         return timezone.now() >= self.updated_at >= timezone.now() - datetime.timedelta(days=30)
