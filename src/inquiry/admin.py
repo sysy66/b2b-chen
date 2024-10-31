@@ -5,9 +5,10 @@ from .models import ClientInfo, MessageInfo
 # TODO: More detail
 
 class MessageInfoAdmin(admin.ModelAdmin):
-    fields = ('msg_subject', 'msg_text', 'msg_client', 'is_deal', 'dealt_at')
+    fields = ('msg_subject', 'msg_text', 'msg_client', 'is_deal')
     list_display = ('msg_subject', 'msg_text', 'msg_client', 'created_at', 'is_deal', 'dealt_at')
-
+    list_display_links = ('msg_subject', 'msg_client')
+    ordering = ('is_deal', '-created_at',)
 
 class MessageInfoInline(admin.TabularInline):
     model = MessageInfo
