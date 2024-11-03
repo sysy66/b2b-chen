@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>WUHAN STARSTONE</title>
-</head>
-    <body>
+{% extends "products/base.html" %}
+
+{% block content %}
         <h1>{{ category.name }}</h1>
         <p>{{ category.desc }}</p>
         {% for item in items %}
             <a href="{% url 'products:detail' item.slug %}">{{ item.name }}</a>
         {% endfor %}
-    </body>
-</html>
+{% endblock %}
