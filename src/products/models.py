@@ -50,7 +50,7 @@ class Item(models.Model):
     desc = models.TextField(blank=True, default='')
     img = models.ImageField(upload_to='images/products/', default='images/products/default.jpg')
     is_popular = models.BooleanField(default=False)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default='1')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     slug = AutoSlugField(populate_from='name', max_length=50, unique=True)
     
     class Meta:

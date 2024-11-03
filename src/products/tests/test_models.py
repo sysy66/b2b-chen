@@ -6,6 +6,13 @@ from products.models import Item, Category
 
 
 class ItemModelsTest(TestCase):
+    def setUp(self):
+        # 创建测试用的 Category 实例
+        self.category = Category.objects.create(
+            name='Test Category',
+            desc='Test Description'
+        )
+        
     def test_default_name(self):
         item = Item()
         self.assertEqual(item.name, "")
@@ -45,7 +52,7 @@ class ItemModelsTest(TestCase):
     
     def test_can_modify_item(self):
         Category.objects.create(name="NEW Category")
-        nuItem = Item(name="NEW Product 1")
+        nuItem = Item(name="NEW Product 1", category=self.category)
         nuItem.full_clean()
         nuItem.save()
         nuItem.desc = "it's Product 1"
