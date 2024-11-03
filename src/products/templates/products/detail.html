@@ -6,9 +6,12 @@
     <title>WUHAN STARSTONE</title>
 </head>
     <body>
-    <h1>{{ item.name }}</h1>
-    <p>{{ item.desc }}</p>
-    <p>{{ item.category }}</p>
+    <h1>NAME: {{ item.name }}</h1>
+    <p>DESCRIPTION: {{ item.desc }}</p>
+    <p>CATEGORY: {{ item.category }}</p>
+    <p>SIZE: {{ item.size }}</p>
+    <p>THICKNESS: {{ item.thickness }}</p>
+    <p>COLOUR: {{ item.colour }}</p>
     <div class="gallery">
     <img id="product_img" src="{% get_media_prefix %}{{ item.img }}" alt="{{ item.name }}" width="150px'">
     </div>
