@@ -40,8 +40,8 @@ class ItemModelsTest(TestCase):
             item2.full_clean()
     
     def test_get_absolute_url(self):
-        Category.objects.create(name="NEW Category")
-        nuItem = Item(name="NEW Product 1")
+        nuCategory = Category.objects.create(name="NEW Category")
+        nuItem = Item(name="NEW Product 1", category=nuCategory)
         nuItem.full_clean()
         nuItem.save()
         self.assertEqual(nuItem.get_absolute_url(), f"/products/{nuItem.slug}/")
@@ -183,11 +183,11 @@ class ItemModel1Test(TestCase):
     
     def test_create_item_without_category(self):
         # 测试项目创建没有类别的情况
-        # should not raise
-        Item.objects.create(
-            name='No Category Item',
-            size='10mm',
-            thickness='20mm',
-            colour='30mm',
-        )
+        with self.assertRaises(Exception):  # 捕获异常
+            Item.objects.create(
+                name='No Category Item',
+                size='10mm',
+                thickness='20mm',
+                colour='30mm',
+            )
             

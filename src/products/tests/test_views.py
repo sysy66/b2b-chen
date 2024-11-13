@@ -16,11 +16,11 @@ class ProductsViewTest(TestCase):
         self.assertTemplateUsed(response, "products/all_p.html")
     
     def test_display_all_items(self):
-        Category.objects.create(name="Test Category")
-        item1 = Item(name="G603")
+        nuCategory = Category.objects.create(name="Test Category")
+        item1 = Item(name="G603", category=nuCategory)
         item1.full_clean()
         item1.save()
-        item2 = Item(name="G602")
+        item2 = Item(name="G602", category=nuCategory)
         item2.full_clean()
         item2.save()
         response = self.client.get("/products/")
@@ -28,8 +28,8 @@ class ProductsViewTest(TestCase):
         self.assertContains(response, item2.name)
     
     def test_uses_detail_template(self):
-        Category.objects.create(name="Test Category")
-        nuItem = Item(name="G602")
+        nuCategory = Category.objects.create(name="Test Category")
+        nuItem = Item(name="G602", category=nuCategory)
         nuItem.full_clean()
         nuItem.save()
         response = self.client.get(f"/products/{nuItem.slug}/")
@@ -60,11 +60,11 @@ class ProductsViewTest(TestCase):
         self.assertEqual(response.status_code, 404)
     
     def test_passes_correct_item_to_template(self):
-        Category.objects.create(name="Test Category")
-        other_item = Item(name="G603")
+        nuCategory = Category.objects.create(name="Test Category")
+        other_item = Item(name="G603", category=nuCategory)
         other_item.full_clean()
         other_item.save()
-        correct_item = Item(name="G602")
+        correct_item = Item(name="G602", category=nuCategory)
         correct_item.full_clean()
         correct_item.save()
         response = self.client.get(f"/products/{correct_item.slug}/")
