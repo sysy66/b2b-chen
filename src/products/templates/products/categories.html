@@ -4,6 +4,6 @@
         <h1>{{ category.name }}</h1>
         <p>{{ category.desc }}</p>
         {% for item in items %}
-            <a href="{% url 'products:detail' item.slug %}">{{ item.name }}</a>
+            <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
         {% endfor %}
 {% endblock %}
