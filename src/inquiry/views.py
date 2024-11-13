@@ -1,4 +1,3 @@
-import os
 from threading import Thread
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -43,12 +42,12 @@ def inquiry_page(request):
                          ]
                          )
             thr.start()
-            
+            # TODO: add a success message to let the user know that their inquiry has been sent
             messages.success(
                 request,
                 "Check your email, we've sent you a ???"
             )
             
-            return redirect("/")
+            return redirect('/')
     
     return render(request, 'inquiry/inquiry_page.html', {'form': InquiryForm()})
