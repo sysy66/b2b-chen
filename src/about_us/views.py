@@ -3,7 +3,7 @@ from .models import PageInfo
 
 
 def view_page(request, title):
-    page_info = get_object_or_404(PageInfo, title=title)
+    page_info = get_object_or_404(PageInfo, title=title, is_active=True)
     return render(request, "about_us/view_page.html", {"page_info": page_info})
 
 
