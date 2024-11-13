@@ -40,9 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third-party apps
+    'autoslug',
+    # local apps
+    'about_us.apps.AboutUsConfig',
     'products.apps.ProductsConfig',
     'inquiry.apps.InquiryConfig',
-    'autoslug',
 ]
 
 MIDDLEWARE = [
